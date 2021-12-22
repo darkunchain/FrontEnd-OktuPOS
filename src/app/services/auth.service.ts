@@ -7,7 +7,7 @@ import { UserInt } from '../interfaces/user-int';
 })
 export class AuthService {
 
-  private URL = 'http://localhost:3000/api'
+  private URL = 'http://posb.remicos.com.co:8082/api'
 
   constructor(private http: HttpClient) { }
 
