@@ -1,0 +1,15 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.alerta {
+  font-size: 1vw;
+}
+
+
