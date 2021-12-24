@@ -81,7 +81,7 @@
 
               <div
                 class="alerta alert-success mt-1"
-                *ngIf="!errores && username?.valid && password?.valid"
+                *ngIf="response && username?.valid && password?.valid"
               >
                 <strong>El usuario ingresó con exito!</strong>
               </div>
@@ -94,7 +94,7 @@
                 {{errores}}
               </div>
             <div class="d-grid gap-2 mt-4">
-              <button class="btn btn-lg btn-primary" type="submit">
+              <button class="btn btn-lg btn-primary" type="submit" [disabled]="!signInForm.valid">
                 Login
               </button>
             </div>

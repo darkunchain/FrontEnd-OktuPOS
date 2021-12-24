@@ -17,6 +17,7 @@ export class AuthSigninComponent implements OnInit {
     return new FormGroup({
       username: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(this.patternmail)]),
       password: new FormControl('', [Validators.required, Validators.minLength(5)]),
+
     })
   }
 
@@ -44,16 +45,17 @@ export class AuthSigninComponent implements OnInit {
   }
   onSaveForm(){
     if (this.signInForm.valid){
-      this.signin()
+      console.log('this.contactform:',this.signInForm.value)
+      this.signin(this.signInForm.value)
       console.log('datos validos')
     }else{
       console.log('datos no validos')
     }
   }
 
-  signin(){
-    console.log('first_user:', this.user)
-    this.authService.signIn(this.user)
+  signin(user:UserInt){
+    console.log('first_user:', user)
+    this.authService.signIn(user)
     .subscribe(
       res => {
         console.log('response:',res, 'res.status:' ,res)

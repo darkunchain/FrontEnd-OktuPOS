@@ -21,21 +21,34 @@
       <div class="card-body">
         <h6 class="card-title">Ingrese Usuario y contraseña</h6>
         <div class="card-text">
-          <form (submit)="signup()">
+          <form [formGroup]="signUpForm" (ngSubmit)="onSaveForm()">
             <fieldset>
               <div class="form-group">
                 <label for="InputEmail" class="form-label mt-4"
                   >correo electrónico</label
                 >
+                <div
+                    class="alerta alert-danger mb-1"
+                    *ngIf="username?.errors?.['required']"
+                  >
+                    Este campo es requerido !!!
+                  </div>
+
+                <div
+                    class="alerta alert-danger mb-1"
+                    *ngIf="username?.errors?.['pattern']"
+                  >
+                    Este campo debe ser un correo valido !!!
+                </div>
+
                 <input
                   type="email"
                   required
-                  [(ngModel)]="user.username"
-                  [ngModelOptions]="{ standalone: true }"
                   class="form-control"
                   id="InputEmail"
                   aria-describedby="emailHelp"
                   placeholder="Ingrese su correo"
+                  formControlName="username"
                   autofocus
                 />
                 <small id="emailHelp" class="form-text text-muted"
@@ -49,33 +62,38 @@
                 <input
                   type="password"
                   required
-                  [(ngModel)]="user.password"
-                  [ngModelOptions]="{ standalone: true }"
                   class="form-control"
                   id="InputPassword"
+                  formControlName="password"
                   placeholder="Password"
                 />
               </div>
 
-              <ng-container *ngIf="errores">
-                <div
-                  [hidden]="isShow"
-                  class="alerta alert alert-dismissible alert-danger mt-2"
-                >
-                  <strong>Error!</strong>
-                  <p>{{ errores }}</p>
-                </div>
-                <div
-                  [hidden]="!isShow"
-                  class="alerta alert alert-dismissible alert-success mt-2"
-                >
-                  <strong>Gracias!</strong>
-                  <p>El usuario fue registrado con exito</p>
-                </div>
-              </ng-container>
+              <div class="alerta alert-danger mt-1"
+              *ngIf="password?.errors?.['required']">
+                Este campo es requerido !!!
+              </div>
+              <div class="alerta alert-danger mt-1"
+              *ngIf="password?.errors?.['minLength']">
+                Este campo debe tener mas de 5 caracteres
+              </div>
+
+
+          <div
+            class="alerta alert-success mt-1"
+            *ngIf="response && username?.valid && password?.valid"
+          >
+            <strong>El usuario se registro con exito!</strong>
+          </div>
             </fieldset>
+            <div
+                class="alerta alert-danger mt-1"
+                *ngIf="errores && !response"
+              >
+                {{errores}}
+              </div>
             <div class="d-grid gap-2 mt-4">
-              <button class="btn btn-lg btn-primary" type="submit">
+              <button class="btn btn-lg btn-primary" type="submit" [disabled]="!signUpForm.valid">
                 Registrarse
               </button>
             </div>
