@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserInt } from 'src/app/interfaces/user-int';
 import { AuthService } from 'src/app/services/auth.service';
-
 
 @Component({
   selector: 'app-auth-signin',
@@ -10,17 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./auth-signin.component.css']
 })
 export class AuthSigninComponent implements OnInit {
-
-  patternmail:any = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-
-  createFormGroup() {
-    return new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern(this.patternmail)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    })
-  }
-
-  signInForm: FormGroup;
 
   user:UserInt = {
     username:'',
@@ -32,23 +19,9 @@ export class AuthSigninComponent implements OnInit {
   public response:any
   isShow:boolean = false
 
-  constructor(private authService: AuthService) {
-    this.signInForm = this.createFormGroup()
-  }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-  }
-
-  onResetForm(){
-    this.signInForm.reset()
-  }
-  onSaveForm(){
-    if (this.signInForm.valid){
-      this.signin()
-      console.log('datos validos')
-    }else{
-      console.log('datos no validos')
-    }
   }
 
   signin(){
@@ -68,9 +41,5 @@ export class AuthSigninComponent implements OnInit {
         this.isShow = false;
       })
   }
-
-  get username() { return this.signInForm.get('username')}
-  get password() { return this.signInForm.get('password')}
-
 
 }
