@@ -9,6 +9,7 @@ import { PrivateComponent } from './components/private/private.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import { PrintPosComponent } from './components/print-pos/print-pos.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     AuthSigninComponent,
     AuthSignupComponent,
     PrivateComponent,
-    HeaderComponent
+    HeaderComponent,
+    PrintPosComponent
   ],
   imports: [
     BrowserModule,

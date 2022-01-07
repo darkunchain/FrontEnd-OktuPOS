@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserInt } from 'src/app/interfaces/user-int';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router'
 
 
 @Component({
@@ -33,7 +34,7 @@ export class AuthSigninComponent implements OnInit {
   public response:any
   isShow:boolean = false
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.signInForm = this.createFormGroup()
   }
 
@@ -62,6 +63,8 @@ export class AuthSigninComponent implements OnInit {
         if(res){
           this.response = res
           this.isShow = true;
+          localStorage.setItem('token',res.token)
+          this.router.navigate(['/private'])
         }
       },
       err => {
